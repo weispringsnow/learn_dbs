@@ -20,13 +20,15 @@
 
 `git remote`命令管理一组跟踪的存储库。 
 
-```
+```shell
 用法：
  1.查看当前的远程库
  	git remote -v  列出详细信息，在每一个名字后面列出其远程url
  2.添加一个新的远程仓库
  	git remote add origin https://github.com/weispringsnow/learn_dbs.git
  	git remote add staging https://github.com/weispringsnow/learn_dbs.git
+ 3.添加一个新的远程仓库	
+    git remote remove staging
 ```
 
 #### 5、fetch
@@ -66,19 +68,20 @@
      git checkout .
      #注意：在使用 git checkout 时，如果其对应的文件被修改过，那么该修改会被覆盖掉
  8.假设你现在基于远程分支”origin“，创建一个叫”mywork“的分支。
-     git checkout -b mywork origin
+     git checkout -b mywork origin 等于 git branch mywork
 ```
 
 #### 7、pull
 
 `git pull`命令用于从另一个存储库或本地分支获取并集成(整合)。`git pull`命令的作用是：取回远程主机某个分支的更新，再与本地的指定分支合并，它的完整格式稍稍有点复杂。
 
-```
+```shell
 用法：
  1.要取回origin主机的next分支，与本地的master分支合并
+  git pull <远程主机名> <远程分支名>:<本地分支名>
   git pull origin next:master #与本地的master分支合并
   git pull origin next        #与当前分支合并 
-  	相等于git fetch origin + git merge origin/next
+  	相等于 git fetch origin + git merge origin/next
 ```
 
 #### 8、clone
@@ -114,7 +117,7 @@
 
 `git rebase`命令在另一个分支基础之上重新应用，用于把一个分支的修改合并到当前分支。
 
-```
+```shell
 git rebase origin 
 git rebase --continue
 git rebase --abort
@@ -130,18 +133,50 @@ git rebase --abort
    git branch -a
    git branch -r
 2. 新建一个分支、切换到指定分支
-   git branch dev2
-   git checkout dev2
+   git branch mywork
+   git checkout mywork
 3. 将更改添加到新建分支上
    git status
    git add git_command.md
-
-
-4. 查看当前有哪些分支
-5. 查看当前有哪些分支
-6. 查看当前有哪些分支
-7. 查看当前有哪些分支
-8. 查看当前有哪些分支
-
+   git commit git_command.md -m "git_command.md"
+   git push origin mywork
+4. 修改分支的名字、删除本地分支、删除远程分支、合并某个分支到当前分支
+   git branch -m wcx_dev wcx_dev2
+   git branch -d staging
+   git push origin --delete dev2
+   git merge wcx_dev2
 ```
+
+#### 13、push
+
+`git push`命令用于将本地分支的更新，推送到远程主机。它的格式与`git pull`命令相似。
+
+ ```shell
+1. 将本地的master分支推送到origin主机的master分支。如果master不存在，则会被新建。
+   git push <远程主机名> <本地分支名>:<远程分支名>
+   git push origin master
+   git push origin wcx_dev2:master
+   git push -u origin master  定origin为默认主机
+   git push --all origin  将所有本地分支都推送到origin主机。
+2. 删除远程分支
+   git push origin :wcx_dev2
+   git push origin --delete wcx_dev2
+3. 组合使用
+  1.推送本地分支lbranch-1到新大远程分支rbranch-1：
+    git push origin lbranch-1:refs/rbranch-1
+  2.推送lbranch-2到已有的rbranch-1，用于补充rbranch-1：
+    git checkout lbranch-2
+    git rebase rbranch-1
+    git push origin lbranch-2:refs/rbranch-1
+ 3.用本地分支lbranch-3覆盖远程分支rbranch-1：
+    git push -f origin lbranch-2:refs/rbranch-1
+    git push origin :refs/rbranch-1   //删除远程的rbranch-1分支 
+    git push origin lbranch-1:refs/rbranch-1
+  4.查看push的结果
+    gitk rbranch-1
+  5.推送tag
+    git push origin tag_name
+  6.删除远程标签 
+    git push origin :tag_name
+ ```
 
