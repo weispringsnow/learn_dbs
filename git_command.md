@@ -69,6 +69,7 @@
      #注意：在使用 git checkout 时，如果其对应的文件被修改过，那么该修改会被覆盖掉
  8.假设你现在基于远程分支”origin“，创建一个叫”mywork“的分支。
      git checkout -b mywork origin 等于 git branch mywork
+     git checkout -b dev origin/dev
 ```
 
 #### 7、pull
