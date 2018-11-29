@@ -70,6 +70,7 @@
  8.假设你现在基于远程分支”origin“，创建一个叫”mywork“的分支。
      git checkout -b mywork origin 等于 git branch mywork
      git checkout -b dev origin/dev
+     从远程库的分支复制到本地分支
 ```
 
 #### 7、pull
