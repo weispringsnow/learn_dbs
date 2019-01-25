@@ -27,7 +27,7 @@
  2.添加一个新的远程仓库
  	git remote add origin https://github.com/weispringsnow/learn_dbs.git
  	git remote add staging https://github.com/weispringsnow/learn_dbs.git
- 3.添加一个新的远程仓库	
+ 3.删除一个新的远程仓库	
     git remote remove staging
 ```
 
