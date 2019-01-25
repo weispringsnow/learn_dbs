@@ -35,29 +35,82 @@ cat /etc/passwd
 
 ```shell
 #1）管理用户（user）的工具或命令；
-adduser&&useradd 注：添加用户
-passwd 注：为用户设置密码
-usermod 注：修改用户命令，可以通过usermod 来修改登录名、用户的家目录等等；
-pwcov 注：同步用户从/etc/passwd 到/etc/shadow
-pwck 注：pwck是校验用户配置文件/etc/passwd 和/etc/shadow 文件内容是否合法或完整；
-pwunconv 注：是pwcov 的立逆向操作，是从/etc/shadow和 /etc/passwd 创建/etc/passwd ，然后会删除 /etc/shadow 文件；
-finger 注：查看用户信息工具 id 注：查看用户的UID、GID及所归属的用户组 chfn 注：更改用户信息工具
-su 注：用户切换工具 sudo 注：sudo 是通过另一个用户来执行命令（execute a command as another user），su 是用来切换用户，然后通过切换到的用户来完成相应的任务，
-但sudo 能后面直接执行命令，比如sudo 不需要root 密码就可以执行root 赋与的执行只有root才能执行相应的命令；但得通过visudo 来编辑/etc/sudoers来实现；
-visudo 注：visodo 是编辑 /etc/sudoers 的命令；也可以不用这个命令，直接用vi 来编辑 /etc/sudoers 的效果是一样的；
-sudoedit 注：和sudo 功能差不多；
+增加用户：useradd mysql
+为用户增加密码：passwd mysql
+#添加用户mysql 到用户组mysql
+useradd -g mysql mysql
+删除用户：userdel username
 #2）管理用户组（group）的工具或命令；
-groupadd 注：添加用户组；
-groupdel 注：删除用户组；
-groupmod 注：修改用户组信息
-groups 注：显示用户所属的用户组
-grpck grpconv 注：通过/etc/group和/etc/gshadow 的文件内容来同步或创建/etc/gshadow ，如果/etc/gshadow 不存在则创建；
-grpunconv 注：通过/etc/group 和/etc/gshadow 文件内容来同步或创建/etc/group ，然后删除gshadow文件；
+新建工作组：groupadd mysql_group
+将用户添加进工作组：usermod -G mysql_group mysql
+                  usermod -a -G groupA mysql
+删除用户组: groupdel mysql_group
+查看用户所属的组使用命令：$ groups user
 ```
 
 ### 2、权限
 
-```shell
+######2.1 文件权限
 
+```shell
+drwxrwxrwx  2 root root  4096 Jan 25 10:07 bin
+-rwxrwxrwx  1 root root 17987 Jan 25 10:08 COPYING
+```
+
+如图所示，一共是10位数字，除去第一位，剩下的9位数字从左到右开始，每三个字母代表一类。这样看来一共是三个组，而此时这里的三类对应到上面的用户组： 
+
+```shell
+除去第一位的字母：
+    前三位代表的是：文件所拥有者对此文件的权限
+    中间三位代表的是：当前用户所属的组对此文件的权限
+    后三位代表的是：其他用户组对此文件的权限
+而第一位代表的是文件的类型：
+    d  目录文件。
+    l  符号链接(指向另一个文件,类似于瘟下的快捷方式)。
+    s  套接字文件。
+    b  块设备文件,二进制文件。
+    c  字符设备文件。
+    p  命名管道文件。
+```
+
+```shell
+r(Read，读取)：对文件而言，具有读取文件内容的权限；对目录来说，具有浏览目录的权限。
+w(Write,写入)：对文件而言，具有新增,修改,删除文件内容的权限；对目录来说，具有新建，删除，修改，移动目录内文件的权限。
+x(Execute，执行)：对文件而言，具有执行文件的权限；对目录了来说该用户具有进入目录的权限。
+```
+
+```shell
+每个字母对应着数字
+r,w,x --------------- 2^2,2^1,2^0
+r:4
+w:2
+x:1
+```
+
+###### 2.2修改文件权限
+
+```
+1.修改权限方法一：
+chmod 755 abc
+其实就是在给abc赋予权限：rwx r-x r-x
+rwx =7 ，r-x=5，r-x=5
+就是样的一个对应关系
+
+2.方法二：
+u：用户权限
+g：组权限
+o：不同组其他用户权限
+r，w，x上面已经介绍过了，再次不多解释。
++：加入
+-：除去
+=：设置
+chmod u+x abc就是给abc的文件所有者可以执行的权限
+```
+
+2.3 改变文件属主和用户组
+
+```shell
+chown -R 所有者:所在的组 文件路径
+chown -R mysql:mysql ./
 ```
 
