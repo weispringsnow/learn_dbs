@@ -182,3 +182,21 @@ git rebase --abort
     git push origin :tag_name
  ```
 
+### 问题
+
+```
+github add a new repository
+1. In github web site, login your own account;
+2. add a new repository;
+3. In your project, run "git init"
+4. git add .
+5. git commit -m "kernel 4.16"
+6. git remote add origin https://github.com/your_name/test.git
+git remote -v
+origin  https://github.com/your_name/test.git (fetch)
+origin  https://github.com/your_name/test.git (push)
+7. before push, run "git pull https://github.com/your_name/test.git"
+8. git push origin master
+then input your user name and password.
+```
+
