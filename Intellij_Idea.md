@@ -2,7 +2,7 @@
 
 ### 一、常用设置
 
-######1、设置自动导包
+######1、设置自动导包 
 
 ```xml
 1. Settings→Editor→General→Auto Import
