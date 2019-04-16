@@ -145,6 +145,7 @@ host权限表：配合db权限表对给定主机上数据库级操作权限作�
 ```
 
 ```mysql
+grant all privileges on *.* to 'root'@'192.168.10.1'identified by '密码'; 
 grant all on prod.* to 'tom'@'%' identified by 'tom' with grant option;
 flush privileges;
 select user,host from user where user='tom';
