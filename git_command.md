@@ -1,14 +1,15 @@
 [TOC]
 ### git命令
-####1、init
+####  1、init
 `git init`命令创建一个空的Git仓库或重新初始化一个现有仓库。 
-####2、add
+#### 2、add
 `git add`命令将文件内容添加到索引(将修改添加到暂存区)。也就是将要提交的文件的信息添加到索引库中。 
 
 ```
 用法： git add <path>
+ git add .    加入全部
 ```
-####3、commit
+#### 3、commit
 
 `git commit`命令将索引的当前内容与描述更改的用户和日志消息一起存储在新的提交中。 
 
@@ -198,5 +199,15 @@ origin  https://github.com/your_name/test.git (push)
 7. before push, run "git pull https://github.com/your_name/test.git"
 8. git push origin master
 then input your user name and password.
+
+
+应用令牌：
+git remote set-url origin  https://<your_token>@github.com/<USERNAME>/<REPO>.git
+
+git remote set-url origin  https://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@github.com/weispringsnow/tech_base.git
+
+git remote set-url origin  https://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@github.com/weispringsnow/learn_dbs.git
+
+
 ```
 
